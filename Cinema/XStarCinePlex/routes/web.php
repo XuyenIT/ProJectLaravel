@@ -44,5 +44,8 @@ Route::prefix('user')->name('user')->middleware('chekLogin')->group(function(){
 Route::prefix('admin')->name('admin')->middleware('checkAdmin')->group(function(){
     Route::get('/adminDashboard', 'Front_end\Generate_link@dashboard');
 });
-
+//Route Fontend Hoang
+Route::get('Now-Showing','Now_Showing_Films@Show_films');
+Route::get('Coming-Soon','Coming_Soon@show');
+Route::get('Film-Detail','Films_Detail@show');
 
