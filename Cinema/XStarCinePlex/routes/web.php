@@ -6,6 +6,7 @@ use App\Http\Controllers\Front_end\Phuc_registerLogin;
 use App\Http\Controllers\Xuyen\BookSeatController;
 use App\Http\Controllers\Xuyen\CinemaController;
 use App\Http\Controllers\Xuyen\PaymentSeatController;
+use App\Http\Controllers\adminPHuc\accountDashboard;
 
 
 /*
@@ -25,6 +26,7 @@ Route::post('user/register', 'Front_end\Phuc_registerLogin@Register');
 Route::post('user/login', 'Front_end\Phuc_registerLogin@checkLogin');
 Route::get('user/login_user', 'Front_end\Phuc_registerLogin@login');
 Route::get('user/DashBoard', 'Front_end\Generate_link@dashboardAccount');
+Route::get('index', 'Front_end\Generate_link@index');
 
 
 //Route của front_end của anh Xuyen
@@ -43,6 +45,9 @@ Route::prefix('user')->name('user')->middleware('chekLogin')->group(function(){
 //Route backend admin cua Phuc
 Route::prefix('admin')->name('admin')->middleware('checkAdmin')->group(function(){
     Route::get('/adminDashboard', 'Front_end\Generate_link@dashboard');
+    Route::get('/account', 'adminPHuc\accountDashboard@accountShow');
+    Route::get('/accountData', 'adminPHuc\accountDashboard@dataAccount');
 });
+
 
 
