@@ -31,7 +31,7 @@ Route::get('user/DashBoard', 'Front_end\Generate_link@dashboardAccount');
 // Route::get('reserve-seat','BookSeatController@bookSeat');
 Route::post('reserve-seat','Xuyen\BookSeatController@bookSeat')->name('postBookSeat');
 Route::post('payment/payment-ticket','Xuyen\BookSeatController@newBookTicket');
-Route::get('cenimainfo','Xuyen\CinemaController@CenimaInFor');
+Route::post('cenimainfo','Xuyen\CinemaController@CenimaInFor');
 
 
 //Route của front_end của Phuc

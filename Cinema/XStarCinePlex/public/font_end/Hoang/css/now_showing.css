@@ -113,7 +113,7 @@ body {
     border-radius: 5px;
     display: inline-block;
     border: 0;
-    padding: 6px 2px;
+    padding: 6px 4px;
     font-size: 13px ;
     font-weight: bold;
     line-height: 19px;
@@ -121,6 +121,7 @@ body {
     text-transform: uppercase;
     vertical-align: middle;
     white-space: nowrap;
+    color: white;
 }
 
 .button-booking span {

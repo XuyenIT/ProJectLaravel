@@ -25,41 +25,47 @@
                         </div>
                     </div>
                     <div class="list-film">
-                        <div class="row product-films">
-                            <div class="col-md-3 col-sm-6 col-xs-6 film_items">
-                                <div class="film-imgs">
-                                    <a href="{{URL::to('Film-Detail')}}" class="film-img">
-                                        <img src="font_end/Hoang/images/card-movie1.jpg" alt="">
-                                    </a>
+                        <form action="{{ URL::to('cenimainfo') }}" method="POST">
+                            @csrf
+                            <div class="row product-films">
+                                <div class="col-md-3 col-sm-6 col-xs-6 film_items">
+                                    <div class="film-imgs">
+                                        <a href="{{URL::to('Film-Detail')}}" class="film-img">
+                                            <img src="font_end/Hoang/images/card-movie1.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="film-content">
+                                        <h2 class="film-name">
+                                            <input type="text" name ="movietitle" value="VENOM"  style="width:100%; border: none; font-size: 15px;font-weight: bold">
+                                            {{-- <a href="" name = "movieTitleH">VENOM </a> --}}
+                                        </h2>
+                                        <div class="film-infor">
+                                            {{-- <input class="infor-bold" type="text" name ="Genre" value="Genre"> --}}
+                                            <span class="infor-bold" name = "Genre">Genre: </span>
+                                            <span class="infor-normal">Action, Horror</span>
+                                        </div>
+                                        <div class="film-infor">
+                                            <span class="infor-bold">Running Time:  </span>
+                                            <span class="infor-normal">128 minutes </span>
+                                        </div>
+                                        <div class="film-infor">
+                                            <span class="infor-bold">Release date: </span>
+                                            <span class="infor-normal">Apr 9, 2021</span>
+                                        </div>
+                                    </div>
+                                    <div class="add-button">
+                                        <div class="button-like">
+                                            <span class="icon"><i class="far fa-thumbs-up fa-1x"></i></span>
+                                            <span>Like</span>
+                                            <span class="content-like">0</span>
+                                        </div>
+                                        {{-- <div class="button-booking"> --}}
+                                            {{-- <span><a href="{{URL::to('cenimainfo')}}">BOOKING</a></span> --}}
+                                            <button type="submit" class="button-booking">BOOKING</button>
+                                        {{-- </div> --}}
+                                    </div>
                                 </div>
-                                <div class="film-content">
-                                    <h2 class="film-name">
-                                        <a href="">VENOM </a>
-                                    </h2>
-                                    <div class="film-infor">
-                                        <span class="infor-bold">Genre: </span>
-                                        <span class="infor-normal">Action, Horror</span>
-                                    </div>
-                                    <div class="film-infor">
-                                        <span class="infor-bold">Running Time:  </span>
-                                        <span class="infor-normal">128 minutes </span>
-                                    </div>
-                                    <div class="film-infor">
-                                        <span class="infor-bold">Release date: </span>
-                                        <span class="infor-normal">Apr 9, 2021</span>
-                                    </div>
-                                </div>
-                                <div class="add-button">
-                                    <div class="button-like">
-                                        <span class="icon"><i class="far fa-thumbs-up fa-1x"></i></span>
-                                        <span>Like</span>
-                                        <span class="content-like">0</span>
-                                    </div>
-                                    <div class="button-booking">
-                                        <span><a href="{{URL::to('Film-Detail')}}">BOOKING</a></span>
-                                    </div>
-                                </div>
-                            </div>
+                        </form>
 
                             <div class="col-md-3 col-sm-6 col-xs-6 film_items">
                                 <div class="film-imgs">

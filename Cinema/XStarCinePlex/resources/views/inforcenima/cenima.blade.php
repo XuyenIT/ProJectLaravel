@@ -44,7 +44,7 @@
                     <div class="row mb-2">
                         <div class="col">
                             <div class="form-outline">
-                                <input type="text" name="movietitle" class="form-control" />
+                                <input type="text" name="movietitle" class="form-control" value="{{ $infoMovie['movietitle'] }}" />
                                 <label class="form-label" for="form6Example1">Movie</label>
                             </div>
                         </div>
