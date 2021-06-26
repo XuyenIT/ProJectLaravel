@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="film-content">
                                         <h2 class="film-name">
-                                            <input type="text" name ="movietitle" value="VENOM"  style="width:100%; border: none; font-size: 15px;font-weight: bold">
+                                            <input type="text" name ="movietitle" value="VENOM"  style="width:100%; border: none; font-size: 15px;font-weight: bold; outline: none" readonly>
                                             {{-- <a href="" name = "movieTitleH">VENOM </a> --}}
                                         </h2>
                                         <div class="film-infor">
