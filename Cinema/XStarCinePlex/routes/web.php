@@ -33,7 +33,7 @@ Route::get('index', 'Front_end\Generate_link@index');
 // Route::get('reserve-seat','BookSeatController@bookSeat');
 Route::post('reserve-seat','Xuyen\BookSeatController@bookSeat')->name('postBookSeat');
 Route::post('payment/payment-ticket','Xuyen\BookSeatController@newBookTicket');
-Route::get('cenimainfo','Xuyen\CinemaController@CenimaInFor');
+Route::post('cenimainfo','Xuyen\CinemaController@CenimaInFor');
 
 
 //Route của front_end của Phuc
@@ -48,6 +48,9 @@ Route::prefix('admin')->name('admin')->middleware('checkAdmin')->group(function(
     Route::get('/account', 'adminPHuc\accountDashboard@accountShow');
     Route::get('/accountData', 'adminPHuc\accountDashboard@dataAccount');
 });
-
+//Route Fontend Hoang
+Route::get('Now-Showing','Now_Showing_Films@Show_films');
+Route::get('Coming-Soon','Coming_Soon@show');
+Route::get('Film-Detail','Films_Detail@show');
 
 

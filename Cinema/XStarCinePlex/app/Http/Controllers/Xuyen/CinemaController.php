@@ -8,7 +8,13 @@ use Illuminate\Http\Request;
 class CinemaController extends Controller
 {
     //
-    public function CenimaInFor(){
-        return view('inforcenima.cenima');
+    public function CenimaInFor(Request $request){
+        $infoMovie = [
+            'movietitle'=>$request->input('movietitle'),
+            'Genre'=>$request->input('Genre'),
+
+        ];
+        // DD($infoMovie);
+        return view('inforcenima.cenima',['infoMovie'=>$infoMovie]);
     }
 }
