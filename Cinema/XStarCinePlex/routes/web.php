@@ -7,7 +7,7 @@ use App\Http\Controllers\Xuyen\BookSeatController;
 use App\Http\Controllers\Xuyen\CinemaController;
 use App\Http\Controllers\Xuyen\PaymentSeatController;
 use App\Http\Controllers\adminPHuc\accountDashboard;
-
+use App\Http\Controllers\adminPHuc\accountPhuc;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +43,15 @@ Route::prefix('user')->name('user')->middleware('chekLogin')->group(function(){
 
 
 //Route backend admin cua Phuc
+
 Route::prefix('admin')->name('admin')->middleware('checkAdmin')->group(function(){
     Route::get('/adminDashboard', 'Front_end\Generate_link@dashboard');
-    Route::get('/account', 'adminPHuc\accountDashboard@accountShow');
-    Route::get('/accountData', 'adminPHuc\accountDashboard@dataAccount');
+   Route::get('/account', 'adminPHuc\accountDashboard@accountShow');
+    Route::get('/accountAdd', 'adminPHuc\accountDashboard@accountAdd');
+    Route::post('/accountAdmin', 'adminPHuc\accountDashboard@storeAdmin');
+    Route::get('/accountEdit/{email}', 'adminPHuc\accountDashboard@editAccount');
+    Route::get('/accountDelete/{email}', 'adminPHuc\accountDashboard@deleteAccount');
+
 });
 //Route Fontend Hoang
 Route::get('Now-Showing','Now_Showing_Films@Show_films');

@@ -15,15 +15,15 @@ class Account extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
 
-            $table->string('Account_Id');
+            $table->increments('Account_Id');
             $table->string('fullname');
             $table->string('email')->unique();
             $table->integer('phone');
             $table->string('password');
             $table->string('gender');
             $table->date('birth');
-            $table->string('preferSite');
-            $table->string('image');
+            $table->string('preferSite')->nullable();
+            $table->string('image')->nullable();
             $table->integer('active');
             $table->integer('role');
             $table->timestamps();

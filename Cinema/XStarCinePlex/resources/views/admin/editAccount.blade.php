@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
         name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>soengsouy.com</title>
     <!--favicon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
@@ -210,76 +211,148 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h4>Account</h4>
-                                        <a href="{{ url('admin/accountAdd') }}">
-                                            <button type="button" class="btn btn-dark">
-                                                <i class="fa fa-fw fa-plus-circle"></i> Create
-                                                New
-                                                Admintration</button>
-
+                                        <a href="{{ url('admin/account') }}">
+                                            <button type="button" class="btn btn-dark"><i class="fa fa-arrow-left"></i>
+                                                Back</button>
                                         </a>
                                     </div>
                                     <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table id="table-account" class="table table-striped table-bordered"
-                                                style="width:100%">
-                                                <thead>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
-                                                    <th>Gender</th>
-                                                    <th>Birth_Date</th>
-                                                    <th>Prefer Site</th>
-                                                    <th>Role</th>
-                                                    <th>Image</th>
-                                                    <th>Action</th>
-                                                </thead>
-                                              <tbody>
-                                                    @foreach ($account as $a)
-                                                        <tr>
-                                                            <td>{{ $a->Account_Id }}</td>
-                                                            <td>{{ $a->fullname }}</td>
-                                                            <td>{{ $a->email }}</td>
-                                                            <td>{{ $a->phone }}</td>
-                                                            <td>{{ $a->gender }}</td>
-                                                            <td>{{ $a->birth }}</td>
-                                                            <td>{{ $a->preferSite }}</td>
-                                                            <td>{{ $a->role == 1 ? 'Admin' : 'User' }}</td>
-                                                            <td><img src="{{ URL::to('/') }}/uploadPicture/{{ $a->image }}" class="img-thumbnail" width="75" /></td>
-                                                            <td>
-                                                                <a href="{{ url("admin/accountEdit/{$a->email}") }}"   class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="ion ion-edit"></i></a>
-                                                                <a href="{{ url("admin/accountDelete/{$a->email}") }}" class="btn btn-danger btn-action delete-confirm" data-toggle="tooltip" title="Delete"><i class="ion ion-trash-b"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+
+                                        <form id="form-addAdmin" enctype="multipart/form-data" method="POST"
+                                            action="{{ url('admin/accountAdmin') }}">
+                                            @csrf
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="">Name</label>
+                                                    <input type="text" class="form-control" name="textName"
+                                                        id="textName" value="{{ $emails->fullname }}">
+                                                    <span class="text-danger">@error('textName')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for=""> Phone</label>
+                                                    <input type="phone" class="form-control" name="textPhone"
+                                                        id="textPhone" value="{{ $emails->phone }}">
+                                                    <span class="text-danger">@error('textPhone')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="">Email</label>
+                                                    <input type="email" class="form-control" name="textEmail"
+                                                        id="textEmail" value="{{ $emails->email }}">
+                                                    <span class="text-danger">@error('textEmail')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="">Date Of Birth</label>
+                                                    <input type="date" class="form-control" name="textDate"
+                                                        id="textDate" value="{{ $emails->birth }}">
+                                                    <span class="text-danger">@error('textDate')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                                {{-- <div class="form-group col-md-6">
+                                                    <label for=""> Password</label>
+                                                    <input type="password" class="form-control" name="textPassword"
+                                                        id="textPassword" value="{{ $emails->password }}">
+                                                    <span class="text-danger">@error('textEmail')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div> --}}
+                                            </div>
+
+                                          {{--   <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="">New Password</label>
+                                                    <input type="password" class="form-control" name="textNewPassword"
+                                                        id="textNewPassword">
+                                                    <span class="text-danger">@error('textNewPassword')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for=""> Comfirm New Password</label>
+                                                    <input type="password" class="form-control" name="textComfirmPassword"
+                                                        id="textComfirmPassword">
+                                                    <span class="text-danger">@error('textComfirmPassword')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                            </div> --}}
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="">Image</label>
+                                                    <input type="file" class="form-control-file" name="textImage"
+                                                        id="textImage">
+                                                     <img src="{{ URL::to('/') }}/uploadPicture/{{ $emails->image }}" class="img-thumbnail" width="75" />
+                                                     <input type="hidden" name="hidden_image" value="{{ $emails->image }}" />
+                                                    <span class="text-danger">@error('textImage')
+                                                            {{ $message }}
+                                                        @enderror</span>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="">Prefer site</label>
+                                                    <select class="form-control" name="textPrefer" id="P-select">
+                                                        <option {{ $emails->preferSite == 'X-star Ho Chi Minh' ? 'selected' : '' }}>X-star Ho Chi Minh</option>
+                                                        <option {{ $emails->preferSite == 'X-star Hai Phong' ? 'selected' : '' }}>X-star Hai Phong</option>
+                                                        <option {{ $emails->preferSite == 'X-star Ha Noi' ? 'selected' : '' }}>X-star Ha Noi</option>
+                                                        <option {{ $emails->preferSite == 'X-star Da Nang' ? 'selected' : '' }}>X-star Da Nang</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Gender</label>
+                                                <input type="radio" class="ml-2" name="gender" value="Female"
+                                                    {{ old('gender') == 'Female' ? 'checked' : '' }} {{ $emails->gender == 'Female' ? 'checked' : '' }}>Female
+                                                <input type="radio" class="ml-2" name="gender" value="Male"
+                                                    {{ old('gender') == 'Male' ? 'checked' : '' }} {{ $emails->gender == 'Male' ? 'checked' : '' }}>Male
+                                                <span class="text-danger">@error('gender')
+                                                        {{ $message }}
+                                                    @enderror</span>
+
+                                            </div>
 
 
 
+                                            <div class="form-group">
+                                                <input type="hidden" name="action" id="action">
+                                                <input type="hidden" name="hidden-Id" id="hidden_Id">
+                                                <button type="submit" class="btn btn-dark float-right"
+                                                    name="action_button" id="action_button" value="Add"> Edit
 
-                                            </table>
-                                        </div>
+                                                </button>
+                                            </div>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                </section>
             </div>
-            <!--het content cua Dash Board nha-->
 
-            <!--Bat dau footer nha-->
-            <footer class="main-footer">
-                <div class="footer-left"> Copyright &copy; X-Star Cineplex 2021
-                    <div class="bullet"></div> Design By <a href="https://soengsouy.com/">X-Star</a>
-                </div>
-                <div class="footer-right"></div>
-            </footer>
-            <!--Het footer nha-->
-
+            </section>
         </div>
+        <!--het content cua Dash Board nha-->
+
+        <!--Bat dau footer nha-->
+        <footer class="main-footer">
+            <div class="footer-left"> Copyright &copy; X-Star Cineplex 2021
+                <div class="bullet"></div> Design By <a href="https://soengsouy.com/">X-Star</a>
+            </div>
+            <div class="footer-right"></div>
+        </footer>
+        <!--Het footer nha-->
+
+    </div>
     </div>
 
 
@@ -292,6 +365,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"
         integrity="sha512-XKa9Hemdy1Ui3KSGgJdgMyYlUg1gM+QhL6cnlyTe2qzMCYm4nAZ1PsVerQzTTXzonUR+dmswHqgJPuwCq1MaAg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
     <script src="{{ asset('font_end/Dasboard_Phuc/modules/popper.js') }}"></script>
     <script src="{{ asset('font_end/Dasboard_Phuc/modules/tooltip.js') }}"></script>
     <script src="{{ asset('font_end/Dasboard_Phuc/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
@@ -302,87 +377,44 @@
     <script src="{{ asset('font_end/Dasboard_Phuc/js/scripts.js') }}"></script>
     <script src="{{ asset('font_end/Dasboard_Phuc/js/custom.js') }}"></script>
     <script src="{{ asset('font_end/Dasboard_Phuc/js/demo.js') }}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!--Script data table-->
-  {{--   <script>
-            $(document).ready(function() {
-             $('#table-account').DataTable({
-                   processing: true,
-                   serverSide: true,
-                  ajax: {
-                       url: '{{ route('account.index') }}'
-               },
-                     columns: [{
-                            data: 'Account_Id',
-                            name: 'Account_Id'
-                        },
-                       {
-                           data: 'fullname',
-                        name: 'fullname'
-                        },
-                    {
-                            data: 'email',
-                            name: 'email'
-                        },
-                        {
-                           data: 'phone',
-                          name: 'phone'
-                      },
-                         {
-                             data: 'gender',
-                            name: 'gender'
-                       },
-                        {
-                            data: 'birth',
-                             name: 'birth'
-                        },
-                        {
-                         data: 'preferSite',
-                            name: 'prefersite'
-                        },
+    <!---Script data table-->
+    {{-- <script>
+        if ($("#form-addAdmin").length > 0) {
 
-                       {
-                            data: 'role',
-                            name: 'role'
-                       },
-                         {
-                             data: 'image',
-                            name: 'image',
-                    render: function (data, type, full, meta) {
-                          return "<img src={{ URL::to('/') }}/uploadPicture/"+ data + "width='70' class='img-thumbnail'/>";
+            $("#form-addAdmin").validate({
+                    submitHandler: function(form) {
+                        $.ajaxSetup({
+                            headers: {
+                                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                             },
-                            orderable:false
-                         },
-                         {
-                            data: 'action',
-                             name: 'action',
-                             orderable: false,
-                             searchable: false
-                        }
-                    ]
-                 });
-        });
+                        });
+                        $.ajax({
+                            url: "{{ url('admin/accountAdmin') }}",
+                            method: 'POST',
+                            data: new FormData(this),
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            dataType: "json",
+                            success: function(data) {
+                                var html = '';
+                                if (data.errors) {
+                                    html = '<div class="alert alert-danger">';
+                                    for (var count = 0; count < p data.errors.length; count++) {
+                                        html += 'p' + data.errors[count] + '</p>';
+                                    }
+                                    html += '</div>';
+                                }
+                                if (data.success) {
+                                    html = '<div class="alert alert-success">' + data.success +
+                                        '</div>';
+                                    $('#form-addAdmin')[0].reset();
+                                }
+                            }
+                        })
+                    });
+            }
     </script> --}}
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table-account').DataTable();
-            $('.delete-confirm').on('click', function(e){
-                e.preventDefault();
-                const url = $(this).attr('href');
-                swal({
-                    title: "Are you sure?",
-                    text: "This record and it is detalis will be permananly deleted!",
-                    icon: 'warning',
-                    buttons: ["Cancel", "Yes!"],
-                }).then(function(value){
-                    if (value) {
-                        window.location.href = url;
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
